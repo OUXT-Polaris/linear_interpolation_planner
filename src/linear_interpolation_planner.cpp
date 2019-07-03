@@ -8,7 +8,7 @@ linear_interpolation_planner::linear_interpolation_planner() :
     nh_.param<int>(ros::this_node::getName()+"/resolution", resolution_, 20);
 
     wp_sub_ = nh_.subscribe(ros::this_node::getName()+"/waypoint",1,&linear_interpolation_planner::waypoint_cb, this);
-    path_pub_ = nh_.advertise<usv_navigation_msgs::Path>(ros::this_node::getName()+"/global_path",1);
+    path_pub_ = nh_.advertise<usv_navigation_msgs::Path>(ros::this_node::getName()+"/path",1);
 }
 
 void linear_interpolation_planner::waypoint_cb(const usv_navigation_msgs::Waypoint::ConstPtr msg)
