@@ -20,5 +20,7 @@ This package generates linear interpolated path.
   This is mostly used as global path.
 
 ## Parameter
-- resolution : `int, default : 20`  
-  The resolution that divides from start to goal.
+- split_length : `double, default : 1`  
+  The resolution of the path.
+- input_topic: `string, default : ~/waypoint`
+  The name of the input topic.

@@ -13,20 +13,17 @@ class linear_interpolation_planner
 public:
     linear_interpolation_planner();
     ~linear_interpolation_planner() = default;
-
     void waypoint_cb(const usv_navigation_msgs::Waypoint::ConstPtr msg);
-
-    usv_navigation_msgs::Path calc_path(const usv_navigation_msgs::Waypoint& wp,
-                                        const geometry_msgs::TransformStamped& cur_pos);
-    
+    usv_navigation_msgs::Path calc_path(const usv_navigation_msgs::Waypoint& wp,const geometry_msgs::TransformStamped& cur_pos);
 private:
     ros::NodeHandle nh_;
     ros::Subscriber wp_sub_;
     ros::Publisher path_pub_;
     tf2_ros::Buffer tf_buffer_;
     tf2_ros::TransformListener tf_listener_;
-
     int resolution_;
+    std::string input_topic_;
+    double split_length_;
 };
 
 #endif
