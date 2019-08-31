@@ -1,5 +1,11 @@
 # linear_interpolation_planner
 
+![Developed By OUXT Polaris](img/logo.png "Logo")
+
+| *master* | *develop* |
+|----------|-----------|
+|[![Build Status](https://travis-ci.org/OUXT-Polaris/linear_interpolation_planner.svg?branch=master)](https://travis-ci.org/OUXT-Polaris/linear_interpolation_planner)|[![Build Status](https://travis-ci.org/OUXT-Polaris/linear_interpolation_planner.svg?branch=develop)](https://travis-ci.org/OUXT-Polaris/linear_interpolation_planner)|
+
 This package generates linear interpolated path.
 
 ## Subscribe

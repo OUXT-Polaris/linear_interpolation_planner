@@ -26,7 +26,7 @@ include_directories(
 
 add_executable(linear_interpolation_planner_node src/linear_interpolation_planner.cpp src/linear_interpolation_planner_node.cpp)
 target_link_libraries(linear_interpolation_planner_node ${catkin_LIBRARIES})
-
+add_dependencies(linear_interpolation_planner_node ${catkin_EXPORTED_TARGETS})
 
 #############
 ## Install ##
