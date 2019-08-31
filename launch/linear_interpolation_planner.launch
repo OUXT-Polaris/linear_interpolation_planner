@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="linear_interpolation_planner" type="linear_interpolation_planner_node" name="linear_interpolation_planner_node" output="log" respawn="true" respawn_delay="0">
+    </node>
+</launch>
