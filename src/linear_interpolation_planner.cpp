@@ -51,6 +51,7 @@ visualization_msgs::MarkerArray linear_interpolation_planner::generateMarker(usv
         pose_marker.scale.x = 0.5;
         pose_marker.scale.y = 0.1;
         pose_marker.scale.z = 0.1;
+        pose_marker.lifetime = ros::Duration(0.3);
         marker_msg.markers.push_back(pose_marker);
         visualization_msgs::Marker text_marker;
         text_marker.header = waypoint_itr->header;
@@ -68,6 +69,7 @@ visualization_msgs::MarkerArray linear_interpolation_planner::generateMarker(usv
         text_marker.scale.x = 0.3;
         text_marker.scale.y = 0.3;
         text_marker.scale.z = 0.3;
+        text_marker.lifetime = ros::Duration(0.3);
         text_marker.text = std::to_string(id);
         marker_msg.markers.push_back(text_marker);
         line_marker.points.push_back(waypoint_itr->pose.position);
