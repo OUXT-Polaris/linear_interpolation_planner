@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="input_topic" default="/linear_interpolation_planner_node/waypoint"/>
-    <arg name="split_length" default="1.0"/>
+    <arg name="split_length" default="3.0"/>
 
     <node pkg="linear_interpolation_planner" type="linear_interpolation_planner_node" name="linear_interpolation_planner_node" output="log" respawn="true" respawn_delay="0">
         <param name="input_topic" value="$(arg input_topic)"/>

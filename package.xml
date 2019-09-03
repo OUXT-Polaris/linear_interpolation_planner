@@ -6,7 +6,7 @@
 
   <maintainer email="groadpg@gmail.com">RyodoTanaka</maintainer>
 
-  <license>TODO</license>
+  <license>Apache 2.0</license>
 
   <url type="website">https://ouxt.oska</url>
   <url type="repository">https://github.com/OUXT-Polaris/linear_interpolation_planner</url>
@@ -21,6 +21,7 @@
   <depend>tf2_ros</depend>
   <depend>geometry_msgs</depend>
   <depend>usv_navigation_msgs</depend>
+  <depend>visualization_msgs</depend>
 
   <export>
   </export>
