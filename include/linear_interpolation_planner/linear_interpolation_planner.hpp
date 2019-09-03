@@ -26,6 +26,7 @@ private:
     tf2_ros::TransformListener tf_listener_;
     int resolution_;
     std::string input_topic_;
+    std::string robot_frame_;
     double split_length_;
 };
 

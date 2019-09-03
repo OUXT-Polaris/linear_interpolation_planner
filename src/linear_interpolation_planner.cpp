@@ -8,6 +8,7 @@ linear_interpolation_planner::linear_interpolation_planner() :
     //nh_.param<int>(ros::this_node::getName()+"/resolution", resolution_, 20);
     nh_.param<double>(ros::this_node::getName()+"/split_length", split_length_, 1.0);
     nh_.param<std::string>(ros::this_node::getName()+"/input_topic", input_topic_, ros::this_node::getName()+"/waypoint");
+    nh_.param<std::string>(ros::this_node::getName()+"/robot_frame", robot_frame_, "base_link");
     wp_sub_ = nh_.subscribe(input_topic_,1,&linear_interpolation_planner::waypoint_cb, this);
     path_pub_ = nh_.advertise<usv_navigation_msgs::Path>(ros::this_node::getName()+"/path",1);
     marker_pub_ = nh_.advertise<visualization_msgs::MarkerArray>(ros::this_node::getName()+"/path/marker",1);
@@ -16,6 +17,22 @@ linear_interpolation_planner::linear_interpolation_planner() :
 visualization_msgs::MarkerArray linear_interpolation_planner::generateMarker(usv_navigation_msgs::Path path)
 {
     visualization_msgs::MarkerArray marker_msg;
+    visualization_msgs::Marker line_marker;
+    std_msgs::ColorRGBA line_color;
+    line_color.r = 0.3;
+    line_color.g = 0.6;
+    line_color.b = 1.0;
+    line_color.a = 1.0;
+    line_marker.ns = "line_marker";
+    line_marker.type = visualization_msgs::Marker::LINE_STRIP;
+    line_marker.action = visualization_msgs::Marker::ADD;
+    line_marker.id = 0;
+    line_marker.frame_locked = true;
+    line_marker.header = path.header;
+    line_marker.color = line_color;
+    line_marker.scale.x = 0.1;
+    line_marker.scale.y = 0.1;
+    line_marker.scale.z = 0.1;
     int id = 0;
     for(auto waypoint_itr = path.waypoints.begin(); waypoint_itr != path.waypoints.end(); waypoint_itr++)
     {
@@ -48,13 +65,16 @@ visualization_msgs::MarkerArray linear_interpolation_planner::generateMarker(usv
         text_marker.color.g = 1.0;
         text_marker.color.b = 1.0;
         text_marker.color.a = 1.0;
-        text_marker.scale.x = 0.1;
-        text_marker.scale.y = 0.1;
-        text_marker.scale.z = 0.1;
+        text_marker.scale.x = 0.3;
+        text_marker.scale.y = 0.3;
+        text_marker.scale.z = 0.3;
         text_marker.text = std::to_string(id);
         marker_msg.markers.push_back(text_marker);
+        line_marker.points.push_back(waypoint_itr->pose.position);
+        line_marker.colors.push_back(line_color);
         id = id + 1;
     }
+    marker_msg.markers.push_back(line_marker);
     return marker_msg;
 }
 
@@ -65,7 +85,7 @@ void linear_interpolation_planner::waypoint_cb(const usv_navigation_msgs::Waypoi
     {
         try
         {
-            transform = tf_buffer_.lookupTransform(msg->header.frame_id, "base_link", ros::Time(0));
+            transform = tf_buffer_.lookupTransform(msg->header.frame_id, robot_frame_, ros::Time(0));
         }
         catch (tf2::TransformException &ex)
         {
