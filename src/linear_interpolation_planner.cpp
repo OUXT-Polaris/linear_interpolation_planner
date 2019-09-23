@@ -5,6 +5,7 @@
 linear_interpolation_planner::linear_interpolation_planner() :
     tf_listener_(tf_buffer_)
 {
+    tf_buffer_.setUsingDedicatedThread(true);
     //nh_.param<int>(ros::this_node::getName()+"/resolution", resolution_, 20);
     nh_.param<double>(ros::this_node::getName()+"/split_length", split_length_, 1.0);
     nh_.param<std::string>(ros::this_node::getName()+"/input_topic", input_topic_, ros::this_node::getName()+"/waypoint");
@@ -87,7 +88,7 @@ void linear_interpolation_planner::waypoint_cb(const usv_navigation_msgs::Waypoi
     {
         try
         {
-            transform = tf_buffer_.lookupTransform(msg->header.frame_id, robot_frame_, ros::Time(0));
+            transform = tf_buffer_.lookupTransform(msg->header.frame_id, robot_frame_, ros::Time(0),ros::Duration(0.1));
         }
         catch (tf2::TransformException &ex)
         {
